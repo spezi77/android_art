@@ -19,6 +19,7 @@
 #include <cstdio>
 #include <cstring>
 #include <string>
+#include <algorithm>
 
 #include "jni.h"
 #include "JniInvocation.h"
