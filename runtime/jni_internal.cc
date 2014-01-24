@@ -831,14 +831,13 @@ class JNI {
   }
 
   static jobject NewGlobalRef(JNIEnv* env, jobject obj) {
-    ScopedObjectAccess soa(env);
-    Object* decoded_obj = soa.Decode<Object*>(obj);
-    // Check for null after decoding the object to handle cleared weak globals.
-    if (decoded_obj == nullptr) {
-      return nullptr;
+    if (obj == NULL) {
+      return NULL;
     }
+    ScopedObjectAccess soa(env);
     JavaVMExt* vm = soa.Vm();
     IndirectReferenceTable& globals = vm->globals;
+    Object* decoded_obj = soa.Decode<Object*>(obj);
     WriterMutexLock mu(soa.Self(), vm->globals_lock);
     IndirectRef ref = globals.Add(IRT_FIRST_SEGMENT, decoded_obj);
     return reinterpret_cast<jobject>(ref);
@@ -872,13 +871,11 @@ class JNI {
   }
 
   static jobject NewLocalRef(JNIEnv* env, jobject obj) {
-    ScopedObjectAccess soa(env);
-    mirror::Object* decoded_obj = soa.Decode<Object*>(obj);
-    // Check for null after decoding the object to handle cleared weak globals.
-    if (decoded_obj == nullptr) {
-      return nullptr;
+    if (obj == NULL) {
+      return NULL;
     }
-    return soa.AddLocalReference<jobject>(decoded_obj);
+    ScopedObjectAccess soa(env);
+    return soa.AddLocalReference<jobject>(soa.Decode<Object*>(obj));
   }
 
   static void DeleteLocalRef(JNIEnv* env, jobject obj) {
