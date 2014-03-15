@@ -142,12 +142,12 @@ extern "C" uint64_t artInvokeInterfaceTrampoline(mirror::ArtMethod* interface_me
   return result;
 }
 
-
-static uint64_t artInvokeCommon(uint32_t method_idx, mirror::Object* this_object,
+uint64_t artInvokeCommon(uint32_t method_idx, mirror::Object* this_object,
                                 mirror::ArtMethod* caller_method,
                                 Thread* self, mirror::ArtMethod** sp, bool access_check,
                                 InvokeType type)
     SHARED_LOCKS_REQUIRED(Locks::mutator_lock_) {
+
   mirror::ArtMethod* method = FindMethodFast(method_idx, this_object, caller_method,
                                                   access_check, type);
   if (UNLIKELY(method == NULL)) {

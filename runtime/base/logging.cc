@@ -27,7 +27,7 @@ LogVerbosity gLogVerbosity;
 
 unsigned int gAborting = 0;
 
-static LogSeverity gMinimumLogSeverity = INFO;
+static LogSeverity gMinimumLogSeverity = ERROR;
 static std::string* gCmdLine = NULL;
 static std::string* gProgramInvocationName = NULL;
 static std::string* gProgramInvocationShortName = NULL;

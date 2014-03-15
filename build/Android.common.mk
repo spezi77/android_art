@@ -85,7 +85,7 @@ LLVM_ROOT_PATH := external/llvm
 include $(LLVM_ROOT_PATH)/llvm.mk
 
 # Clang build.
-# ART_TARGET_CLANG := true
+ART_TARGET_CLANG := true
 # ART_HOST_CLANG := true
 
 # directory used for gtests on device
@@ -178,6 +178,9 @@ ART_HOST_CFLAGS += -fno-omit-frame-pointer
 
 # To use oprofile_android --callgraph, uncomment this and recompile with "mmm art -B -j16"
 # ART_TARGET_CFLAGS += -fno-omit-frame-pointer -marm -mapcs
+
+# Enable this only if ART is built with clang
+ART_TARGET_CFLAGS += -Wno-error -Wno-unknown-warning-option -Wno-unused-parameter -Wno-mismatched-tags -Wno-compare-distinct-pointer-types -Qunused-arguments
 
 ART_HOST_NON_DEBUG_CFLAGS := $(art_non_debug_cflags)
 ART_TARGET_NON_DEBUG_CFLAGS := $(art_non_debug_cflags)

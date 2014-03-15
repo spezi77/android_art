@@ -21,7 +21,7 @@
 
 namespace art {
 
-static mirror::ArtMethod* FindMethodHelper(uint32_t method_idx,
+mirror::ArtMethod* FindMethodHelper(uint32_t method_idx,
                                                 mirror::Object* this_object,
                                                 mirror::ArtMethod* caller_method,
                                                 bool access_check,

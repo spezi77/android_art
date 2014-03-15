@@ -25,6 +25,7 @@ namespace art {
 // Memmap is a bit slower than malloc according to my measurements.
 static constexpr bool kUseMemMap = false;
 static constexpr bool kUseMemSet = true && kUseMemMap;
+constexpr size_t Arena::kDefaultSize;
 
 static const char* alloc_names[ArenaAllocator::kNumAllocKinds] = {
   "Misc       ",
