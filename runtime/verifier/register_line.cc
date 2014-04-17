@@ -412,7 +412,7 @@ void RegisterLine::CheckLiteralOp(const Instruction* inst,
 }
 
 void RegisterLine::PushMonitor(uint32_t reg_idx, int32_t insn_idx) {
-#ifndef WORKAROUND_BUG_61916
+#if 0
   const RegType& reg_type = GetRegisterType(reg_idx);
   if (!reg_type.IsReferenceTypes()) {
     verifier_->Fail(VERIFY_ERROR_BAD_CLASS_HARD) << "monitor-enter on non-object (" << reg_type << ")";
@@ -426,7 +426,7 @@ void RegisterLine::PushMonitor(uint32_t reg_idx, int32_t insn_idx) {
 }
 
 void RegisterLine::PopMonitor(uint32_t reg_idx) {
-#ifndef WORKAROUND_BUG_61916
+#if 0
   const RegType& reg_type = GetRegisterType(reg_idx);
   if (!reg_type.IsReferenceTypes()) {
     verifier_->Fail(VERIFY_ERROR_BAD_CLASS_HARD) << "monitor-exit on non-object (" << reg_type << ")";
@@ -471,10 +471,10 @@ bool RegisterLine::MergeRegisters(const RegisterLine* incoming_line) {
       line_[idx] = new_type.GetId();
     }
   }
-#ifndef WORKAROUND_BUG_61916
+#if 0
   if (monitors_.size() != incoming_line->monitors_.size()) {
-    LOG(WARNING) << "mismatched stack depths (depth=" << MonitorStackDepth()
-                 << ", incoming depth=" << incoming_line->MonitorStackDepth() << ")";
+    verifier_->Fail(VERIFY_ERROR_BAD_CLASS_HARD) << "mismatched stack depths (depth="
+        << MonitorStackDepth() << ", incoming depth=" << incoming_line->MonitorStackDepth() << ")";
   } else if (reg_to_lock_depths_ != incoming_line->reg_to_lock_depths_) {
     for (uint32_t idx = 0; idx < num_regs_; idx++) {
       size_t depths = reg_to_lock_depths_.count(idx);
@@ -483,8 +483,8 @@ bool RegisterLine::MergeRegisters(const RegisterLine* incoming_line) {
         if (depths == 0 || incoming_depths == 0) {
           reg_to_lock_depths_.erase(idx);
         } else {
-          LOG(WARNING) << "mismatched stack depths for register v" << idx
-                       << ": " << depths  << " != " << incoming_depths;
+          verifier_->Fail(VERIFY_ERROR_BAD_CLASS_HARD) << "mismatched stack depths for register v" << idx
+                                                       << ": " << depths  << " != " << incoming_depths;
           break;
         }
       }
