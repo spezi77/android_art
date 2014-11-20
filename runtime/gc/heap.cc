@@ -412,7 +412,12 @@ Heap::Heap(size_t initial_size, size_t growth_limit, size_t min_free, size_t max
     mark_compact_collector_ = new collector::MarkCompact(this);
     garbage_collectors_.push_back(mark_compact_collector_);
   }
+
+#if defined(DONT_CHECK_GAP)
+  if (0 && GetImageSpace() != nullptr && non_moving_space_ != nullptr) {
+#else
   if (GetImageSpace() != nullptr && non_moving_space_ != nullptr) {
+#endif
     // Check that there's no gap between the image space and the non moving space so that the
     // immune region won't break (eg. due to a large object allocated in the gap).
     bool no_gap = MemMap::CheckNoGaps(GetImageSpace()->GetMemMap(),

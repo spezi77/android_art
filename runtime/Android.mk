@@ -330,6 +330,16 @@ ifeq ($(ART_USE_HSPACE_COMPACT),true)
   LIBART_CFLAGS += -DART_USE_HSPACE_COMPACT
 endif
 
+# kDefaultNonMovingSpaceCapacity may be too high for some devices
+ifeq ($(ART_USE_SMALL_NMSC),true)
+  LIBART_CFLAGS += -DUSE_SMALL_NMSC
+endif
+
+# No gap check is bugging out
+ifeq ($(ART_DONT_CHECK_GAP),true)
+  LIBART_CFLAGS += -DDONT_CHECK_GAP
+endif
+
 # $(1): target or host
 # $(2): ndebug or debug
 define build-libart
