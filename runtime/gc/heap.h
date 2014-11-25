@@ -133,8 +133,8 @@ class Heap {
   static constexpr size_t kDefaultStartingSize = kPageSize;
   static constexpr size_t kDefaultInitialSize = 2 * MB;
   static constexpr size_t kDefaultMaximumSize = 256 * MB;
-#if defined(USE_SMALL_NMSC)
-  static constexpr size_t kDefaultNonMovingSpaceCapacity = 32 * MB;
+#if defined(USE_CUSTOM_NMSC)
+  static constexpr size_t kDefaultNonMovingSpaceCapacity = USE_CUSTOM_NMSC * MB;
 #else
   static constexpr size_t kDefaultNonMovingSpaceCapacity = 64 * MB;
 #endif

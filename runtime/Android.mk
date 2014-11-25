@@ -331,8 +331,8 @@ ifeq ($(ART_USE_HSPACE_COMPACT),true)
 endif
 
 # kDefaultNonMovingSpaceCapacity may be too high for some devices
-ifeq ($(ART_USE_SMALL_NMSC),true)
-  LIBART_CFLAGS += -DUSE_SMALL_NMSC
+ifneq ($(ART_USE_CUSTOM_NMSC),)
+  LIBART_CFLAGS += -DUSE_CUSTOM_NMSC=$(ART_USE_CUSTOM_NMSC)
 endif
 
 # No gap check is bugging out
