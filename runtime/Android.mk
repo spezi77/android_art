@@ -330,14 +330,9 @@ ifeq ($(ART_USE_HSPACE_COMPACT),true)
   LIBART_CFLAGS += -DART_USE_HSPACE_COMPACT
 endif
 
-# kDefaultNonMovingSpaceCapacity may be too high for some devices
-ifneq ($(ART_USE_CUSTOM_NMSC),)
-  LIBART_CFLAGS += -DUSE_CUSTOM_NMSC=$(ART_USE_CUSTOM_NMSC)
-endif
-
 # No gap check is bugging out
 ifeq ($(ART_DONT_CHECK_GAP),true)
-  LIBART_CFLAGS += -DDONT_CHECK_GAP
+	LIBART_CFLAGS += -DDONT_CHECK_GAP
 endif
 
 # $(1): target or host
