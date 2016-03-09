@@ -18,6 +18,13 @@ LOCAL_PATH := $(call my-dir)
 
 include art/build/Android.executable.mk
 
+# ASan slows down dex2oat by ~3.5x, which translates into extremely slow first
+# boot. Disabled to help speed up SANITIZE_TARGET mode.
+# Bug: 22233158
+ifneq (,$(filter address, $(SANITIZE_TARGET)))
+LOCAL_SANITIZE := never
+endif
+
 DEX2OAT_SRC_FILES := \
 	dex2oat.cc
 
@@ -55,3 +62,4 @@ endif
 ifeq ($(ART_BUILD_HOST_DEBUG),true)
   $(eval $(call build-art-executable,dex2oat,$(DEX2OAT_SRC_FILES),libcutils libartd-compiler libziparchive-host,art/compiler,host,debug,$(dex2oat_host_arch)))
 endif
+
