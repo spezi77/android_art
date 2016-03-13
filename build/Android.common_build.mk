@@ -200,22 +200,13 @@ art_cflags := \
   -fno-rtti \
   -std=gnu++11 \
   -ggdb3 \
-  -Wall \
-  -Werror \
-  -Wextra \
   -Wstrict-aliasing \
   -fstrict-aliasing \
-  -Wunreachable-code \
-  -Wredundant-decls \
-  -Wshadow \
-  -Wunused \
   -fvisibility=protected \
   $(art_default_gc_type_cflags)
 
 # Missing declarations: too many at the moment, as we use "extern" quite a bit.
 #  -Wmissing-declarations \
-
-
 
 ifdef ART_IMT_SIZE
   art_cflags += -DIMT_SIZE=$(ART_IMT_SIZE)
